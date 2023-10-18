@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.bonghwan.mosquito.ui.MainViewModel" />
@@ -14,15 +15,117 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/subColor"
         tools:context=".ui.MainActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:id="@+id/ivMosquito"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/splash_mosquito"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTodayMosquito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="서울시 모기지수"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivMosquito" />
+
+        <TextView
+            android:id="@+id/tvTodayMosquitoDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="2023-10-18 갱신"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTodayMosquito" />
+
+        <ImageView
+            android:id="@+id/ivHouse"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/svg_house"
+            app:layout_constraintEnd_toStartOf="@id/ivPark"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTodayMosquitoDate" />
+
+        <ImageView
+            android:id="@+id/ivPark"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/svg_park"
+            app:layout_constraintEnd_toStartOf="@id/ivWater"
+            app:layout_constraintStart_toEndOf="@id/ivHouse"
+            app:layout_constraintTop_toBottomOf="@id/tvTodayMosquitoDate" />
+
+        <ImageView
+            android:id="@+id/ivWater"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/svg_water"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivPark"
+            app:layout_constraintTop_toBottomOf="@id/tvTodayMosquitoDate" />
+
+        <TextView
+            android:id="@+id/tvHouse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="36.2"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/ivHouse"
+            app:layout_constraintStart_toStartOf="@id/ivHouse"
+            app:layout_constraintTop_toBottomOf="@id/ivHouse" />
+
+        <TextView
+            android:id="@+id/tvPark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="26.7"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/ivPark"
+            app:layout_constraintStart_toStartOf="@id/ivPark"
+            app:layout_constraintTop_toBottomOf="@id/ivHouse" />
+
+        <TextView
+            android:id="@+id/tvWater"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="42.2"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/ivWater"
+            app:layout_constraintStart_toStartOf="@id/ivWater"
+            app:layout_constraintTop_toBottomOf="@id/ivHouse" />
+
+        <ImageView
+            android:id="@+id/ivNotification"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="36dp"
+            android:src="@drawable/svg_notification"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

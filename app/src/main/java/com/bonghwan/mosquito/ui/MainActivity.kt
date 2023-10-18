@@ -25,6 +25,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    // Check if the initial data is ready.
+                    return if (viewModel.isReady) {
+                        // The content is ready; start drawing.
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        // The content is not ready; suspend.
+                        false
+                    }
+                }
+            }
+        )
+
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 2.5f, 1f)
             val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 2.5f, 1f)
@@ -44,6 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         binding = DataBindingUtil.setContentView(this, layoutResId)
         binding.lifecycleOwner = this
+
         init()
     }
 
@@ -56,23 +74,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         CoroutineScope(Dispatchers.Main).launch {
             viewModel.setReady()
         }
-
-        val content: View = findViewById(android.R.id.content)
-        content.viewTreeObserver.addOnPreDrawListener(
-            object : ViewTreeObserver.OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    // Check if the initial data is ready.
-                    return if (viewModel.isReady) {
-                        // The content is ready; start drawing.
-                        content.viewTreeObserver.removeOnPreDrawListener(this)
-                        true
-                    } else {
-                        // The content is not ready; suspend.
-                        false
-                    }
-                }
-            }
-        )
 
         initView()
 
