@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Mosquito" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowSplashScreenBackground">@color/mainColor</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_mosquito</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/mainColor</item>
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+    </style>
+
+    <style name="Theme.Mosquito" parent="Base.Theme.Mosquito" />
+</resources>
