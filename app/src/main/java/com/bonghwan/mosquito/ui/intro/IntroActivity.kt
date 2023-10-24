@@ -1,9 +1,9 @@
-package com.bonghwan.mosquito.ui
+package com.bonghwan.mosquito.ui.intro
 
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.annotation.SuppressLint
-import android.app.DatePickerDialog
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
@@ -11,26 +11,19 @@ import android.view.animation.AnticipateInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
-import com.bonghwan.mosquito.App
 import com.bonghwan.mosquito.R
 import com.bonghwan.mosquito.core.BaseActivity
-import com.bonghwan.mosquito.databinding.ActivityMainBinding
+import com.bonghwan.mosquito.databinding.ActivityIntroBinding
+import com.bonghwan.mosquito.ui.main.MainActivity
+import com.bonghwan.mosquito.ui.main.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.time.Clock
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
-import java.util.GregorianCalendar
 
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: IntroViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,57 +69,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun init() {
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this)[IntroViewModel::class.java]
 
         binding.apply {
-            viewModel = this@MainActivity.viewModel
+            viewModel = this@IntroActivity.viewModel
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            val today = LocalDate.now(ZoneId.of("Asia/Seoul"))
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val formattedDate = today.format(formatter)
-            viewModel.getMosquitoStatus(formattedDate)
+            viewModel.isUser()
         }
 
         initView()
-
-        viewModel.error.observe(this) {
-            App.getInstanceApp().makeText(it.toString())
-        }
-
-        viewModel.mosquitoLiveData.observe(this) {
-            binding.data = it.mosquitoStatus?.row?.get(0)?.copy()
-        }
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun initView() = with(binding) {
-        // 뷰 이벤트 리스너 할당
-        ivSearch.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                viewModel?.getMosquitoStatus(etSearch.text.toString())
-            }
+        btLoginKakao.setOnClickListener {
+
         }
 
-        etSearch.apply {
-            isFocusable = false
-            val today = GregorianCalendar()
-            var tYear = today.get(Calendar.YEAR)
-            var tMonth = today.get(Calendar.MONTH)
-            var tDay = today.get(Calendar.DATE)
-
-            setOnClickListener {
-                DatePickerDialog(context, { _, year, month, dayOfMonth ->
-                    val calendar = Calendar.getInstance()
-                    calendar.set(year, month, dayOfMonth)
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-                    val formattedDate = dateFormat.format(calendar.time)
-                    setText(formattedDate)
-                    tYear = year
-                    tMonth = month
-                    tDay = dayOfMonth
-                }, tYear, tMonth, tDay).show()
+        btNoLogin.setOnClickListener {
+            Intent(this@IntroActivity, MainActivity::class.java).run {
+                startActivity(this)
             }
         }
     }

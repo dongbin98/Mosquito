@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 fun provideMosquitoApi(): MosquitoApi = Retrofit.Builder()
-    .baseUrl("http://openapi.seoul.go.kr:8088/")
+    .baseUrl("http://13.125.169.9/")
     .addConverterFactory(GsonConverterFactory.create())
     .client(OkHttpClient())
     .build()

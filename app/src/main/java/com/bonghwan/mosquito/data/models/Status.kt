@@ -4,16 +4,16 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Status(
-    @SerializedName("MOSQUITO_DATE")
+    @SerializedName("mosquito_date")
     @Expose
     val date: String?,
-    @SerializedName("MOSQUITO_VALUE_WATER")
+    @SerializedName("mosquito_value_water")
     @Expose
     val water: String?,
-    @SerializedName("MOSQUITO_VALUE_HOUSE")
+    @SerializedName("mosquito_value_house")
     @Expose
     val house: String?,
-    @SerializedName("MOSQUITO_VALUE_PARK")
+    @SerializedName("mosquito_value_park")
     @Expose
     val park: String?,
 )

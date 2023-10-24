@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.bonghwan.mosquito.ui.MainViewModel" />
+            type="com.bonghwan.mosquito.ui.main.MainViewModel" />
 
         <variable
             name="data"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/subSky"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <ImageView
             android:id="@+id/ivNotification"
@@ -51,9 +51,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:text="오늘의 모기지수"
-                android:textColor="@color/subBlue"
+                android:fontFamily="@font/yeongdeok_snow_crab_ttf"
+                android:textColor="@color/mainBlue"
                 android:textSize="24sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -136,32 +136,11 @@
                 android:text="@{data.water}"
                 android:textAlignment="center"
                 android:textStyle="bold"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/ivWater"
                 app:layout_constraintStart_toStartOf="@id/ivWater"
                 app:layout_constraintTop_toBottomOf="@id/ivHouse" />
-
-            <EditText
-                android:id="@+id/etSearch"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:layout_marginBottom="16dp"
-                android:hint="날짜 선택하기"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvHouse" />
-
-            <ImageView
-                android:id="@+id/ivSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:src="@drawable/baseline_saved_search_24"
-                app:layout_constraintBottom_toBottomOf="@id/etSearch"
-                app:layout_constraintStart_toEndOf="@id/etSearch"
-                app:layout_constraintTop_toTopOf="@id/etSearch" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

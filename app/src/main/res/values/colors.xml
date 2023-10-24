@@ -16,4 +16,6 @@
     <color name="green">#FF03C75A</color>
     <color name="gray1">#FFCFCFCF</color>
     <color name="gray2">#FF999999</color>
+    <color name="kakaoBackground">#FFFEE500</color>
+    <color name="kakaoText">#FF3C1E1E</color>
 </resources>
