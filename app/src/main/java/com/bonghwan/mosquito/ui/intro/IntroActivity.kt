@@ -3,7 +3,6 @@ package com.bonghwan.mosquito.ui.intro
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
@@ -14,8 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bonghwan.mosquito.R
 import com.bonghwan.mosquito.core.BaseActivity
 import com.bonghwan.mosquito.databinding.ActivityIntroBinding
-import com.bonghwan.mosquito.ui.main.MainActivity
-import com.bonghwan.mosquito.ui.main.MainViewModel
+import com.bonghwan.mosquito.ui.home.BottomActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -88,7 +86,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
         }
 
         btNoLogin.setOnClickListener {
-            Intent(this@IntroActivity, MainActivity::class.java).run {
+            Intent(this@IntroActivity, BottomActivity::class.java).run {
                 startActivity(this)
             }
         }

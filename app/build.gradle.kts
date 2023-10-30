@@ -61,11 +61,11 @@ dependencies {
     // SplashScreen API
     // implementation("androidx.core:core-splashscreen:1.0.1")
     // Room
-    val roomVersion = "2.5.2"
+    val roomVersion = "2.6.0"
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
-    androidTestImplementation("androidx.room:room-testing:2.5.2")
-    implementation("androidx.room:room-ktx:2.5.2")
+    androidTestImplementation("androidx.room:room-testing:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
     implementation("androidx.activity:activity-ktx:1.8.0")
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
@@ -74,4 +74,6 @@ dependencies {
     // LiveData
     implementation ("androidx.databinding:databinding-runtime:8.1.2")
     implementation ("androidx.activity:activity-ktx:1.8.0")
+    // Chart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Mosquito"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.home.BottomActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.intro.IntroActivity"
             android:exported="true">
             <intent-filter>
@@ -25,9 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="true"/>
     </application>
 
 </manifest>

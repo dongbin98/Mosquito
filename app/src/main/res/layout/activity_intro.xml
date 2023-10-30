@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="서울시 모기경보"
-            android:fontFamily="@font/yeongdeok_snow_crab_ttf"
+            android:fontFamily="@font/pretendard_extrabold"
             android:textColor="@color/mainBlue"
             android:textSize="36sp"
             app:layout_constraintTop_toBottomOf="@id/ivIntroImage"

@@ -1,4 +1,4 @@
-package com.bonghwan.mosquito.ui.main
+package com.bonghwan.mosquito.ui.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class MainViewModel: ViewModel() {
+class HomeViewModel: ViewModel() {
     private val mosquitoApi = provideMosquitoApi()
 
     private val _mosquitoLiveData = MutableLiveData<Status>()
@@ -37,7 +37,6 @@ class MainViewModel: ViewModel() {
                     mosquitoApi.getMosquitoRecent().execute()
                 }
                 if (response.isSuccessful) {
-                    handleError("해당 데이터를 가져옵니다.")
                     _mosquitoLiveData.postValue(response.body())
                     Log.d("data", response.body().toString())
                 } else {
@@ -56,8 +55,7 @@ class MainViewModel: ViewModel() {
                     mosquitoApi.getMosquitoWeek().execute()
                 }
                 if (response.isSuccessful) {
-                    handleError("해당 데이터를 가져옵니다.")
-                    _mosquitoListLiveData.postValue(response.body())
+                    _mosquitoListLiveData.postValue(response.body()?.list)
                     Log.d("data", response.body().toString())
                 } else {
                     handleError(response.errorBody()?.string())
@@ -75,8 +73,7 @@ class MainViewModel: ViewModel() {
                     mosquitoApi.getMosquitoAll().execute()
                 }
                 if (response.isSuccessful) {
-                    handleError("해당 데이터를 가져옵니다.")
-                    _mosquitoListLiveData.postValue(response.body())
+                    _mosquitoListLiveData.postValue(response.body()?.list)
                     Log.d("data", response.body().toString())
                 } else {
                     handleError(response.errorBody()?.string())
