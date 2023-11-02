@@ -7,6 +7,11 @@
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_mosquito</item>
         <item name="android:windowSplashScreenIconBackgroundColor">@color/subBlue</item>
         <item name="android:windowSplashScreenAnimationDuration">1000</item>
+
+        <!-- status bar -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="BottomNavigationView">

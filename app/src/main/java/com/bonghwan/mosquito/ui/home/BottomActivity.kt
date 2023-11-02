@@ -34,6 +34,9 @@ class BottomActivity : BaseActivity<ActivityBottomBinding>(R.layout.activity_bot
 
     override fun init() {
         initBottomNavigation()
+        makeStatusBarTransparent()
+        binding.bottomNavigationView.setPadding(0, 0, 0, this.navigationHeight())
+        binding.layoutParent.setPadding(0, this.statusBarHeight(), 0, 0)
         onBackPressedDispatcher.addCallback(this, callback)
     }
 
