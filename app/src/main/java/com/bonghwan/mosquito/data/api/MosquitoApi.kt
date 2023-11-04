@@ -1,17 +1,18 @@
 package com.bonghwan.mosquito.data.api
 
-import com.bonghwan.mosquito.data.api.dto.StatusList
+import com.bonghwan.mosquito.data.api.dto.StatusListDto
 import com.bonghwan.mosquito.data.models.Status
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Headers
 
 interface MosquitoApi {
-    @GET("mosquito/recent")
+    @GET("recent")
     fun getMosquitoRecent(): Call<Status>
 
-    @GET("mosquito/week")
-    fun getMosquitoWeek(): Call<StatusList>
+    @GET("week")
+    fun getMosquitoWeek(): Call<StatusListDto>
 
-    @GET("mosquito/all")
-    fun getMosquitoAll(): Call<StatusList>
+    @GET("all")
+    fun getMosquitoAll(): Call<StatusListDto>
 }

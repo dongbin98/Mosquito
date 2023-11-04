@@ -27,6 +27,7 @@ class BottomActivity : BaseActivity<ActivityBottomBinding>(R.layout.activity_bot
 //                LoginManager.logout()
                 val intent = Intent(this@BottomActivity, IntroActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.putExtra("auto-login", false)
                 startActivity(intent)
             }
         }

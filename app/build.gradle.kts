@@ -1,3 +1,7 @@
+import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import java.util.Properties
+
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -18,6 +22,15 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    // 'local.properties' 파일을 읽어옴
+    val localProperties = Properties()
+    localProperties.load(rootProject.file("local.properties").inputStream())
+
+    // 'local.properties' 파일에서 원하는 속성을 읽어옴
+    val kakaoSdkKey = localProperties.getProperty("kakaoSdkKey")
+
+    defaultConfig.manifestPlaceholders(mapOf("kakaoSdkKey" to kakaoSdkKey))
 
     buildTypes {
         release {
@@ -53,7 +66,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // OkHttp3
-    implementation("com.squareup.okhttp3:okhttp:4.9.2")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
     // Coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
@@ -76,4 +89,9 @@ dependencies {
     implementation ("androidx.activity:activity-ktx:1.8.0")
     // Chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    /* Kakao Login */
+    implementation ("com.kakao.sdk:v2-user:2.17.0")
+    implementation ("com.kakao.sdk:v2-user-rx:2.17.0")
+    /* AndroidX Security */
+    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
 }

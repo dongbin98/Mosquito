@@ -4,7 +4,7 @@ import com.bonghwan.mosquito.data.models.Status
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class StatusList(
+data class StatusListDto(
     @SerializedName("COUNT")
     @Expose
     val count: Int,

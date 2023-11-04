@@ -1,9 +1,16 @@
 package com.bonghwan.mosquito
 
 import android.app.Application
+import android.content.pm.PackageManager
+import android.os.Build
 import android.widget.Toast
+import com.kakao.sdk.common.KakaoSdk
 
 class App: Application() {
+
+    init {
+        instance = this
+    }
     companion object {
         lateinit var instance: App
         fun getInstanceApp(): App {
@@ -13,7 +20,18 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+
+        /* get metadata for api key */
+        val metadata = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            packageManager.getApplicationInfo(
+                packageName,
+                PackageManager.ApplicationInfoFlags.of(PackageManager.GET_META_DATA.toLong())
+            ).metaData
+        } else {
+            packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData
+        }
+
+        KakaoSdk.init(this, metadata.getString("com.bonghwan.mosquito.kakaoSdkKey").toString())
     }
 
     fun makeText(text: String) {

@@ -10,6 +10,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -28,6 +29,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Redirect URI: "kakao${kakao_native_app_key}://oauth" -->
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao${kakaoSdkKey}" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.bonghwan.mosquito.kakaoSdkKey"
+            android:value="${kakaoSdkKey}" />
     </application>
 
 </manifest>
