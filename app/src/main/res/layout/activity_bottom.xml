@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
+        android:background="@color/white"
         tools:context=".ui.home.BottomActivity">
 
         <androidx.fragment.app.FragmentContainerView
@@ -29,6 +30,7 @@
             app:itemIconTint="@color/navigation_color"
             app:itemTextColor="@color/navigation_color"
             app:menu="@menu/bottom_nav_menu"
+            app:itemRippleColor="@null"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

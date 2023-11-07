@@ -15,18 +15,14 @@ import com.bonghwan.mosquito.data.api.provideAccountApi
 import com.bonghwan.mosquito.data.api.provideKakaoApiWithToken
 import com.bonghwan.mosquito.data.models.Account
 import com.bonghwan.mosquito.data.models.ErrorResponse
-import com.bonghwan.mosquito.util.EventWrapper
 import com.google.gson.Gson
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.lang.Exception
 
 class IntroViewModel : ViewModel() {
-    var isReady = false
 
     private val accountApi: AccountApi = provideAccountApi()
     private lateinit var kakaoApi: KakaoApi
@@ -59,7 +55,7 @@ class IntroViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    val reqAccount: ReqAccount = ReqAccount(username, password, name)
+                    val reqAccount = ReqAccount(username, password, name)
                     Log.d("reqAccount", reqAccount.toString())
                     accountApi.createAccount(reqAccount).execute()
                 }
@@ -120,7 +116,6 @@ class IntroViewModel : ViewModel() {
                 val response = withContext(Dispatchers.IO) {
                     accountApi.login(ReqLogin(username=username, password=password)).execute()
                 }
-                Log.d("response", response.toString())
                 if (response.isSuccessful) {
                     _loginResponse.postValue(response.body())
                 } else {
@@ -147,7 +142,6 @@ class IntroViewModel : ViewModel() {
                 val response = withContext(Dispatchers.IO) {
                     accountApi.login(ReqLogin(refreshToken=refreshToken)).execute()
                 }
-                Log.d("response", response.toString())
                 if (response.isSuccessful) {
                     _autoLoginResponse.postValue(response.body())
                 } else {
@@ -164,16 +158,16 @@ class IntroViewModel : ViewModel() {
                 }
             } catch (e: IOException) {
                 handleError("인터넷 연결을 확인해주세요.")
-                Log.e("error", e.message.toString())
             }
         }
     }
 
     suspend fun getKakaoProfile(accessToken: String) {
+        kakaoApi = provideKakaoApiWithToken(accessToken)
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    kakaoApi = provideKakaoApiWithToken(accessToken)
+                    Log.d("호출", "호출")
                     kakaoApi.getUserProfile().execute()
                 }
                 if (response.isSuccessful) {
@@ -183,7 +177,6 @@ class IntroViewModel : ViewModel() {
                 }
             } catch (e: IOException) {
                 handleError("인터넷 연결을 확인해주세요.")
-                Log.e("error", e.message.toString())
             }
         }
     }

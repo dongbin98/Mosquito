@@ -42,8 +42,10 @@ android {
         }
     }
 
-    dataBinding { enable = true }
-    viewBinding { enable = true }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -94,4 +96,7 @@ dependencies {
     implementation ("com.kakao.sdk:v2-user-rx:2.17.0")
     /* AndroidX Security */
     implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
+    /* Material CalendarView */
+    implementation("com.github.prolificinteractive:material-calendarview:2.0.1")
+    implementation("com.jakewharton.threetenabp:threetenabp:1.2.0")
 }

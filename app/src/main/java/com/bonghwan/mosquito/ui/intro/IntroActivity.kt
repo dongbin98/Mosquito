@@ -69,11 +69,6 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 }
             }
         )
-
-        binding = DataBindingUtil.setContentView(this, layoutResId)
-        binding.lifecycleOwner = this
-
-        init()
     }
 
     override fun init() {
@@ -93,9 +88,9 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 // 카카오 회원정보를 가져오면 해당 정보로 가입된 계정이 있는지 확인
                 Log.i("KakaoLogin", "모기경보 가입 정보를 불러옵니다")
                 kakaoProfileResponseDto = it
-//                CoroutineScope(Dispatchers.Main).launch {
-//                    viewModel.getAccount(kakaoProfileResponseDto.id.toString())
-//                }
+                CoroutineScope(Dispatchers.Main).launch {
+                    viewModel.getAccount(kakaoProfileResponseDto.id.toString())
+                }
             }
         }
 
@@ -228,42 +223,4 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
             UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
         }
     }
-
-//    @SuppressLint("CheckResult")
-//    private fun loginWithKakao() {
-//        // for rx
-//        disposables.add(
-//            // 카카오톡 설치 확인
-//            if ((UserApiClient.instance.isKakaoTalkLoginAvailable(this@IntroActivity))) {
-//                UserApiClient.rx.loginWithKakaoTalk(this@IntroActivity)
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .onErrorResumeNext { error ->
-//                        // 의도적인 로그인 취소 시 카카오계정 로그인 시도 없이 로그인 취소로 처리
-//                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-//                            Single.error(error)
-//                        } else {
-//                            // 카카오톡에 연결된 계정이 없는 경우, 카카오계정으로 로그인 시도
-//                            UserApiClient.rx.loginWithKakaoAccount(this@IntroActivity)
-//                        }
-//                    }.subscribe({ token ->
-//                        Log.i("KakaoLogin", "카카오톡 로그인 성공 ${token.accessToken}")
-//                        CoroutineScope(Dispatchers.Main).launch {
-//                            viewModel.getKakaoProfile(token.accessToken)
-//                        }
-//                    }, { error ->
-//                        Log.e("KakaoLogin", "카카오톡 로그인 실패", error)
-//                    })
-//            } else {
-//                UserApiClient.rx.loginWithKakaoAccount(this@IntroActivity)
-//                    .observeOn(AndroidSchedulers.mainThread()).subscribe({ token ->
-//                        Log.i("KakaoLogin", "카카오계정 로그인 성공 ${token.accessToken}")
-//                        CoroutineScope(Dispatchers.Main).launch {
-//                            viewModel.getKakaoProfile(token.accessToken)
-//                        }
-//                    }, { error ->
-//                        Log.e("KakaoLogin", "카카오계정 로그인 실패", error)
-//                    })
-//            }
-//        )
-//    }
 }

@@ -19,8 +19,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/subSky"
+        android:background="@color/white"
         tools:context=".ui.home.MainActivity">
+
+        <TextView
+            android:id="@+id/tvTodayMosquito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:textAlignment="center"
+            android:text="@{data.date + `\n오늘의 모기지수`}"
+            android:textColor="@color/mainBlue"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mosquitoLayout"
@@ -30,24 +44,12 @@
             android:layout_marginTop="36dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/view_white_round"
-            android:elevation="4dp"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/mainBlue"
+            android:outlineAmbientShadowColor="@color/mainBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tvTodayMosquito"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:fontFamily="@font/pretendard_bold"
-                android:textAlignment="center"
-                android:text="@{data.date + `\n오늘의 모기지수`}"
-                android:textColor="@color/mainBlue"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvTodayMosquito">
 
             <ImageView
                 android:id="@+id/ivHouse"
@@ -58,7 +60,7 @@
                 app:layout_constraintEnd_toStartOf="@id/ivPark"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTodayMosquito" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/ivPark"
@@ -68,7 +70,7 @@
                 android:src="@drawable/svg_park"
                 app:layout_constraintEnd_toStartOf="@id/ivWater"
                 app:layout_constraintStart_toEndOf="@id/ivHouse"
-                app:layout_constraintTop_toBottomOf="@id/tvTodayMosquito" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/ivWater"
@@ -78,7 +80,7 @@
                 android:src="@drawable/svg_water"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivPark"
-                app:layout_constraintTop_toBottomOf="@id/tvTodayMosquito" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvHouse"
@@ -141,10 +143,12 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:outlineSpotShadowColor="@color/mainBlue"
+            android:outlineAmbientShadowColor="@color/mainBlue"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="36dp"
             android:background="@drawable/view_white_round"
-            android:elevation="4dp"
+            android:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

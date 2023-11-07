@@ -24,7 +24,6 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes val layoutResId: Int
     AppCompatActivity() {
     protected lateinit var binding: T
 
-    @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -1,6 +1,7 @@
 package com.bonghwan.mosquito.ui.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.bonghwan.mosquito.App
 import com.bonghwan.mosquito.R
@@ -41,10 +42,12 @@ class ValueFragment : BaseFragment<FragmentValueBinding>(R.layout.fragment_value
         }
 
         viewModel.mosquitoLiveData.observe(this) {
+            Log.d("recent", "loaded")
             binding.data = it
         }
 
         viewModel.mosquitoListLiveData.observe(this) {
+            Log.d("list", "loaded")
             initChart(it)
         }
     }

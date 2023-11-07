@@ -1,8 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Mosquito" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/mainBlue</item>
+        <item name="colorPrimaryVariant">@color/subBlue</item>
+        <item name="colorPrimaryDark">@color/mainBlue</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/mainBlue</item>
+        <item name="colorSecondaryVariant">@color/subBlue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorControlHighlight">@color/mainBlue</item>
+
+
         <item name="android:windowSplashScreenBackground">@color/subSky</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_mosquito</item>
         <item name="android:windowSplashScreenIconBackgroundColor">@color/subBlue</item>
