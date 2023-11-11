@@ -3,8 +3,10 @@ package com.bonghwan.mosquito
 import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import android.widget.Toast
 import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.common.util.Utility
 
 class App: Application() {
 
@@ -32,6 +34,8 @@ class App: Application() {
         }
 
         KakaoSdk.init(this, metadata.getString("com.bonghwan.mosquito.kakaoSdkKey").toString())
+
+        Log.d("Kakao Hash", Utility.getKeyHash(this))
     }
 
     fun makeText(text: String) {
