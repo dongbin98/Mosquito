@@ -30,6 +30,13 @@ fun provideUserDataApi(): UserDataApi = Retrofit.Builder()
     .build()
     .create(UserDataApi::class.java)
 
+fun provideFcmApi(): FcmApi = Retrofit.Builder()
+    .baseUrl("http://13.125.169.9/fcm-token/")
+    .addConverterFactory(GsonConverterFactory.create())
+    .client(OkHttpClient())
+    .build()
+    .create(FcmApi::class.java)
+
 fun provideKakaoApiWithToken(accessToken: String): KakaoApi = Retrofit.Builder()
     .baseUrl("https://kapi.kakao.com/v2/user/")
     .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

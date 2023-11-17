@@ -6,9 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bonghwan.mosquito.data.api.dto.PartUserData
+import com.bonghwan.mosquito.data.api.dto.ReqFcmToken
 import com.bonghwan.mosquito.data.api.dto.ReqUserData
+import com.bonghwan.mosquito.data.api.provideFcmApi
 import com.bonghwan.mosquito.data.api.provideMosquitoApi
 import com.bonghwan.mosquito.data.api.provideUserDataApi
+import com.bonghwan.mosquito.data.models.FcmToken
 import com.bonghwan.mosquito.data.models.Status
 import com.bonghwan.mosquito.data.models.UserData
 import com.kakao.sdk.user.model.User
@@ -20,6 +23,7 @@ import java.io.IOException
 class HomeViewModel: ViewModel() {
     private val mosquitoApi = provideMosquitoApi()
     private val userDataApi = provideUserDataApi()
+    private val fcmApi = provideFcmApi()
 
     private val _mosquitoLiveData = MutableLiveData<Status>()
     var mosquitoLiveData: LiveData<Status> = _mosquitoLiveData

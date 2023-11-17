@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "273850671487",
+    "project_id": "mosquito-f7106",
+    "storage_bucket": "mosquito-f7106.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273850671487:android:72b1f0ff0efb1308f93a4a",
+        "android_client_info": {
+          "package_name": "com.bonghwan.mosquito"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdwXovOEbVDVsWYjv--0iES63knAwsZ5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
