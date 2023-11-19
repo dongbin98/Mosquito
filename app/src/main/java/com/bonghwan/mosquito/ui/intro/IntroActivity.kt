@@ -166,10 +166,6 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
         btLoginKakao.setOnClickListener {
             loginWithKakao()
         }
-
-        btNoLogin.setOnClickListener {
-            startMain()
-        }
     }
 
     private fun autoLogin() {

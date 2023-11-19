@@ -41,16 +41,16 @@
             android:id="@+id/btLoginKakao"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="64dp"
+            android:layout_marginEnd="32dp"
             android:backgroundTint="@color/kakaoBackground"
             android:text="카카오톡으로 시작하기"
             android:textColor="@color/kakaoText"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btNoLogin" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <ImageView
             android:id="@+id/ivKakao"
@@ -61,21 +61,6 @@
             app:layout_constraintBottom_toBottomOf="@id/btLoginKakao"
             app:layout_constraintStart_toStartOf="@id/btLoginKakao"
             app:layout_constraintTop_toTopOf="@id/btLoginKakao"/>
-
-        <Button
-            android:id="@+id/btNoLogin"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="96dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/subBlue"
-            android:text="가입없이 시작하기"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
