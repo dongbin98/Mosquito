@@ -88,7 +88,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
         switchNotification.apply {
             isChecked =
-                (SecurePreferencesHelper.getNotification(requireContext())!! && (ContextCompat.checkSelfPermission(
+                (SecurePreferencesHelper.getNotification(requireContext())!! and (ContextCompat.checkSelfPermission(
                     requireContext(),
                     Manifest.permission.POST_NOTIFICATIONS
                 ) == PackageManager.PERMISSION_GRANTED))

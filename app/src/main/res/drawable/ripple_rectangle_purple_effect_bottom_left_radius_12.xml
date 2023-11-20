@@ -1,0 +1,9 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/white"> <!-- 리플 효과의 색상을 여기에 설정하세요 -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:bottomLeftRadius="12dp" android:bottomRightRadius="12dp"/>
+            <solid android:color="@color/subBlue" /> <!-- 배경 색상을 여기에 설정하세요 -->
+        </shape>
+    </item>
+</ripple>

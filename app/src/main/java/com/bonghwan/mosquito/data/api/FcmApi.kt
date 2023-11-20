@@ -21,7 +21,7 @@ interface FcmApi {
     @POST(" ")
     fun createFcmToken(@Body reqFcmToken: ReqFcmToken): Call<FcmToken>
 
-    @DELETE("{device_token}")
+    @DELETE("/{device_token}")
     fun deleteFcmToken(@Path("device_token") deviceToken: String): Call<FcmToken>
 
     @POST("test")
