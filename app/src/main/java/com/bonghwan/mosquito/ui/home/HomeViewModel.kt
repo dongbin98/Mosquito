@@ -15,12 +15,13 @@ import com.bonghwan.mosquito.data.models.FcmToken
 import com.bonghwan.mosquito.data.models.Status
 import com.bonghwan.mosquito.data.models.UserData
 import com.kakao.sdk.user.model.User
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel : ViewModel() {
     private val mosquitoApi = provideMosquitoApi()
     private val userDataApi = provideUserDataApi()
     private val fcmApi = provideFcmApi()
@@ -177,6 +178,39 @@ class HomeViewModel: ViewModel() {
                 }
             } catch (e: IOException) {
                 handleUserDataError(e.message.toString())
+            }
+        }
+    }
+
+    suspend fun uploadToken(reqFcmToken: ReqFcmToken) {
+        viewModelScope.launch {
+            try {
+                val fcmApi = provideFcmApi()
+                withContext(Dispatchers.IO) { fcmApi.createFcmToken(reqFcmToken).execute() }
+            } catch (e: IOException) {
+                Log.e("IOException", e.message.toString())
+            }
+        }
+    }
+
+    suspend fun deleteToken(deviceToken: String) {
+        viewModelScope.launch {
+            try {
+                val fcmApi = provideFcmApi()
+                withContext(Dispatchers.IO) { fcmApi.deleteFcmToken(deviceToken).execute() }
+            } catch (e: IOException) {
+                Log.e("IOException", e.message.toString())
+            }
+        }
+    }
+
+    suspend fun testNotification() {
+        viewModelScope.launch {
+            try {
+                val fcmApi = provideFcmApi()
+                withContext(Dispatchers.IO) { fcmApi.testNotification().execute() }
+            } catch (e: IOException) {
+                Log.e("IOException", e.message.toString())
             }
         }
     }

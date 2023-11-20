@@ -4,13 +4,16 @@ import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bonghwan.mosquito.App
@@ -22,6 +25,7 @@ import com.bonghwan.mosquito.databinding.ActivityBottomBinding
 import com.bonghwan.mosquito.ui.intro.IntroActivity
 import com.bonghwan.mosquito.ui.intro.IntroViewModel
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,14 +54,35 @@ class BottomActivity : BaseActivity<ActivityBottomBinding>(R.layout.activity_bot
         }
     }
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) { isGranted: Boolean ->
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission(),) { isGranted: Boolean ->
         if (isGranted) {
             // FCM SDK (and your app) can post notifications.
         } else {
-            // TODO: Inform user that that your app will not show notifications.
-            App.getInstanceApp().makeText("알림 권한을 거부하셨습니다.")
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
+                val dialog = PermissionDialog.newInstance()
+                dialog.setDismissCallback {
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "알림권한이 거부되었습니다. 확인을 누르면 설정 화면으로 이동합니다.",
+                        Snackbar.LENGTH_SHORT
+                    ).setAction("확인") {
+                        val intent =
+                            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:${packageName}"))
+                        startActivity(intent)
+                    }.show()
+                }
+                dialog.show(supportFragmentManager, "permission")
+            } else {
+//                Snackbar.make(
+//                    findViewById(android.R.id.content),
+//                    "알림권한이 거부되었습니다. 확인을 누르면 설정 화면으로 이동합니다.",
+//                    Snackbar.LENGTH_SHORT
+//                ).setAction("확인") {
+//                    val intent =
+//                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:${packageName}"))
+//                    startActivity(intent)
+//                }.show()
+            }
         }
     }
 
@@ -73,17 +98,9 @@ class BottomActivity : BaseActivity<ActivityBottomBinding>(R.layout.activity_bot
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
                 PackageManager.PERMISSION_GRANTED
             ) {
-                // FCM SDK (and your app) can post notifications.
-            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                // TODO: display an educational UI explaining to the user the features that will be enabled
-                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
-                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
-                //       If the user selects "No thanks," allow the user to continue without notifications.
-            } else {
-                // Directly ask for the permission
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
