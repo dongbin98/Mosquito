@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -98,6 +99,14 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun initView() = with(binding) {
+        layoutNotificationTest.visibility = View.GONE
+        val account = LoginManager.getCurrentUser()?.account
+        account?.let {
+            if (it.name == "유봉환") {
+                layoutNotificationTest.visibility = View.VISIBLE
+            }
+        }
+
         layoutNotificationTest.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel?.testNotification()
