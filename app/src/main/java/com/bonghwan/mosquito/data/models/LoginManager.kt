@@ -10,7 +10,7 @@ object LoginManager {
     }
 
     fun login(loginResponseDto: LoginResponseDto) {
-        currentUser = LoggedUser(account = loginResponseDto.account, token = loginResponseDto.token)
+        currentUser = LoggedUser(account = loginResponseDto.account, accessToken = loginResponseDto.accessToken, refreshToken = loginResponseDto.refreshToken, tokenType = loginResponseDto.tokenType)
     }
 
     fun syncInfo(account: Account) {

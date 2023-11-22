@@ -23,10 +23,10 @@ fun provideAccountApi(): AccountApi = Retrofit.Builder()
     .build()
     .create(AccountApi::class.java)
 
-fun provideUserDataApi(): UserDataApi = Retrofit.Builder()
+fun provideUserDataApi(accessToken: String): UserDataApi = Retrofit.Builder()
     .baseUrl("http://13.125.169.9/userdata/")
     .addConverterFactory(GsonConverterFactory.create())
-    .client(OkHttpClient())
+    .client(accessTokenClient(accessToken))
     .build()
     .create(UserDataApi::class.java)
 

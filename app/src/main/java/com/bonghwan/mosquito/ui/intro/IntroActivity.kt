@@ -135,9 +135,9 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                     LoginManager.login(it)
                     SecurePreferencesHelper.saveRefreshToken(
                         this@IntroActivity,
-                        it.token.refreshToken
+                        it.refreshToken
                     )
-                    Log.d("refreshToken", it.token.refreshToken)
+                    Log.d("refreshToken", it.refreshToken)
                     startActivity(Intent(this@IntroActivity, BottomActivity::class.java))
                 }
             }
@@ -151,9 +151,9 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                     LoginManager.login(it)
                     SecurePreferencesHelper.saveRefreshToken(
                         this@IntroActivity,
-                        it.token.refreshToken
+                        it.refreshToken
                     )
-                    Log.d("refreshToken", it.token.refreshToken)
+                    Log.d("refreshToken", it.refreshToken)
                     isLoggedIn = true
                 }
             } else {

@@ -5,9 +5,17 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponseDto(
-    @SerializedName("token")
+    @SerializedName("access_token")
     @Expose
-    val token: TokenResponseDto,
+    val accessToken: String,
+
+    @SerializedName("refresh_token")
+    @Expose
+    val refreshToken: String,
+
+    @SerializedName("token_type")
+    @Expose
+    val tokenType: String,
 
     @SerializedName("account")
     @Expose

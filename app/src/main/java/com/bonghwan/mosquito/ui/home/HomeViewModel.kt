@@ -15,6 +15,7 @@ import com.bonghwan.mosquito.data.api.provideMosquitoApi
 import com.bonghwan.mosquito.data.api.provideUserDataApi
 import com.bonghwan.mosquito.data.models.ErrorResponse
 import com.bonghwan.mosquito.data.models.FcmToken
+import com.bonghwan.mosquito.data.models.LoginManager
 import com.bonghwan.mosquito.data.models.Status
 import com.bonghwan.mosquito.data.models.UserData
 import com.google.gson.Gson
@@ -27,8 +28,9 @@ import java.io.IOException
 import java.lang.Exception
 
 class HomeViewModel : ViewModel() {
+    private val token = LoginManager.getCurrentUser()!!.accessToken
+    private val userDataApi = provideUserDataApi(token)
     private val mosquitoApi = provideMosquitoApi()
-    private val userDataApi = provideUserDataApi()
     private val accountApi: AccountApi = provideAccountApi()
 
     private val _mosquitoLiveData = MutableLiveData<Status>()
@@ -90,6 +92,7 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
+
                     mosquitoApi.getMosquitoWeek().execute()
                 }
                 if (response.isSuccessful) {
