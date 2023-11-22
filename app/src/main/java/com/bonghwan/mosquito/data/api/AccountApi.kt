@@ -9,6 +9,7 @@ import com.bonghwan.mosquito.data.models.LoggedUser
 import com.bonghwan.mosquito.data.models.Status
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -20,6 +21,9 @@ interface AccountApi {
 
     @GET("{username}")
     fun getAccount(@Path("username") username: String): Call<Account>
+
+    @DELETE("{username}")
+    fun deleteAccount(@Path("username") username: String): Call<Account>
 
     @POST("login")
     fun login(@Body reqLogin: ReqLogin): Call<LoginResponseDto>

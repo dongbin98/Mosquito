@@ -18,12 +18,12 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface FcmApi {
-    @POST(" ")
+    @POST("fcm-token")
     fun createFcmToken(@Body reqFcmToken: ReqFcmToken): Call<FcmToken>
 
-    @DELETE("/{device_token}")
+    @DELETE("fcm-token/{device_token}")
     fun deleteFcmToken(@Path("device_token") deviceToken: String): Call<FcmToken>
 
-    @POST("test")
+    @POST("fcm-token/test")
     fun testNotification(): Call<String>
 }

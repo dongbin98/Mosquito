@@ -5,26 +5,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bonghwan.mosquito.data.api.AccountApi
 import com.bonghwan.mosquito.data.api.dto.PartUserData
 import com.bonghwan.mosquito.data.api.dto.ReqFcmToken
 import com.bonghwan.mosquito.data.api.dto.ReqUserData
+import com.bonghwan.mosquito.data.api.provideAccountApi
 import com.bonghwan.mosquito.data.api.provideFcmApi
 import com.bonghwan.mosquito.data.api.provideMosquitoApi
 import com.bonghwan.mosquito.data.api.provideUserDataApi
+import com.bonghwan.mosquito.data.models.ErrorResponse
 import com.bonghwan.mosquito.data.models.FcmToken
 import com.bonghwan.mosquito.data.models.Status
 import com.bonghwan.mosquito.data.models.UserData
+import com.google.gson.Gson
 import com.kakao.sdk.user.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import java.lang.Exception
 
 class HomeViewModel : ViewModel() {
     private val mosquitoApi = provideMosquitoApi()
     private val userDataApi = provideUserDataApi()
-    private val fcmApi = provideFcmApi()
+    private val accountApi: AccountApi = provideAccountApi()
 
     private val _mosquitoLiveData = MutableLiveData<Status>()
     var mosquitoLiveData: LiveData<Status> = _mosquitoLiveData
@@ -50,7 +55,10 @@ class HomeViewModel : ViewModel() {
     private val _userDataError = MutableLiveData<String?>()
     var userDataError: LiveData<String?> = _userDataError
 
-    private val apiKey = "7a6143617479656f343074756f4a65"
+    private val _accountResponse = MutableLiveData<Boolean>()
+    var accountResponse: LiveData<Boolean> = _accountResponse
+
+    private val gson = Gson()
 
     private fun handleError(message: String?) {
         _error.postValue(message)
@@ -211,6 +219,35 @@ class HomeViewModel : ViewModel() {
                 withContext(Dispatchers.IO) { fcmApi.testNotification().execute() }
             } catch (e: IOException) {
                 Log.e("IOException", e.message.toString())
+            }
+        }
+    }
+
+    suspend fun deleteAccount(id: String) {
+        viewModelScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    accountApi.deleteAccount(id).execute()
+                }
+                Log.d("response", response.toString())
+                if (response.isSuccessful) {
+                    _accountResponse.postValue(true)
+                } else {
+                    _accountResponse.postValue(false)
+                    try {
+                        val errorResponse = gson.fromJson(response.errorBody()?.string().toString(), ErrorResponse::class.java)
+                        if (errorResponse.detail.user == "데이터를 찾을 수 없습니다.") {
+                            handleError("로그인에 실패하였습니다.")
+                        }
+                        else
+                            handleError(errorResponse.detail.user)
+                    } catch (e: Exception) {
+                        handleError("서버 통신 오류")
+                    }
+                }
+            } catch (e: IOException) {
+                handleError("인터넷 연결을 확인해주세요.")
+                Log.e("error", e.message.toString())
             }
         }
     }

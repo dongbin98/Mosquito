@@ -31,7 +31,7 @@ fun provideUserDataApi(): UserDataApi = Retrofit.Builder()
     .create(UserDataApi::class.java)
 
 fun provideFcmApi(): FcmApi = Retrofit.Builder()
-    .baseUrl("http://13.125.169.9/fcm-token/")
+    .baseUrl("http://13.125.169.9/")
     .addConverterFactory(GsonConverterFactory.create())
     .client(OkHttpClient())
     .build()

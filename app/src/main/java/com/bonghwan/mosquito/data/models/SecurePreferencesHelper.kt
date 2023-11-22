@@ -58,6 +58,27 @@ object SecurePreferencesHelper {
         }
     }
 
+    fun deleteRefreshToken(context: Context) {
+        try {
+            val masterKey = MasterKey.Builder(context)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
+            val sharedPreferences = EncryptedSharedPreferences.create(
+                context,
+                PREF_NAME,
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+
+            val editor = sharedPreferences.edit()
+            editor.remove(KEY_REFRESH_TOKEN)
+            editor.apply()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     fun setNotification(context: Context, isChecked: Boolean) {
         try {
             // Create a MasterKey for encryption
@@ -104,6 +125,29 @@ object SecurePreferencesHelper {
         } catch (e: Exception) {
             e.printStackTrace()
             return null
+        }
+    }
+
+    fun deleteNotification(context: Context) {
+        try {
+            val masterKey = MasterKey.Builder(context)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
+
+            // Initialize EncryptedSharedPreferences
+            val sharedPreferences = EncryptedSharedPreferences.create(
+                context,
+                PREF_NAME,
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+
+            val editor = sharedPreferences.edit()
+            editor.remove(NOTIFICATION_CHECK)
+            editor.apply()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

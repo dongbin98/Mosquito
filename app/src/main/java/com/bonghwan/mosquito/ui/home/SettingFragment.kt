@@ -19,6 +19,7 @@ import com.bonghwan.mosquito.data.api.dto.ReqFcmToken
 import com.bonghwan.mosquito.data.models.LoginManager
 import com.bonghwan.mosquito.data.models.SecurePreferencesHelper
 import com.bonghwan.mosquito.databinding.FragmentSettingBinding
+import com.bonghwan.mosquito.ui.intro.IntroActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
@@ -39,6 +40,18 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             viewModel = this@SettingFragment.viewModel
         }
         initView()
+
+        viewModel.accountResponse.observe(viewLifecycleOwner) {
+            if(it) {
+                App.getInstanceApp().makeText("회원탈퇴 되었습니다.")
+                SecurePreferencesHelper.deleteRefreshToken(requireContext())
+                LoginManager.logout()
+                val intent = Intent(requireContext(), IntroActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            }
+        }
     }
 
     private val requestPermissionLauncher =
@@ -59,7 +72,11 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                             Snackbar.LENGTH_SHORT
                         ).setAction("확인") {
                             val intent =
-                                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:${requireContext().packageName}"))
+                                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(
+                                    Uri.parse(
+                                        "package:${requireContext().packageName}"
+                                    )
+                                )
                             startActivity(intent)
                         }.show()
                     }
@@ -129,6 +146,21 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                         }
                     }
                 }
+            }
+        }
+        layoutDelete.setOnClickListener {
+            val id = LoginManager.getCurrentUser()?.account?.id
+            id?.let {
+                CoroutineScope(Dispatchers.IO).launch {
+                    viewModel?.deleteAccount(it)
+                }
+            }
+        }
+        layoutFaq.setOnClickListener {
+            val webpage: Uri = Uri.parse("https://data.seoul.go.kr/dataList/OA-13285/S/1/datasetView.do")
+            val intent = Intent(Intent.ACTION_VIEW, webpage)
+            if (intent.resolveActivity(requireContext().packageManager) != null) {
+                startActivity(intent)
             }
         }
     }
